@@ -1,7 +1,10 @@
 package com.principal;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class MapInterfaceDemo {
 
@@ -60,9 +63,31 @@ public class MapInterfaceDemo {
 				System.out.println(clave);
 			} else {
 				;
+			
 			}
+			
 		}
-
-	}
+			//agrupar las personas por sexo(utilizar la clase persona y crear un listado de persona
+			//creamos el listado de personas
+			List<Persona> personas;
+			//obtenemos el listado de personas
+			personas = Persona.getPersonas();
+			
+			//obtengo un mapa que la clave sera el sexo
+			Map<Persona.Sexo, List<Persona>> personasPorSexo;
+			
+			//usamos un stream para convertir el listado de personas en un flujo
+			//usamos collect para que cree una nueva coleccion de otra ya existente
+			personasPorSexo = personas.stream().collect(Collectors.groupingBy(Persona::getSexo));
+			System.out.println(personasPorSexo);
+		
+			//obtener un mapa que contenga el nombre de las personas agrupado por ciudad
+			Map<Persona.Ciudad, List<String>> personasPorCiudad;
+			
+			//el groupby va a extraer solo el nombre de las personas, llevara por tanto un mapeo, ya que 
+			//no se puede convertir a String
+			personasPorCiudad = personas.stream().collect(Collectors.groupingBy(Persona::getCiudad, 
+					Collectors.mapping((Persona p) -> p.getNombre(), Collectors.toList())));
+		}
 
 }
