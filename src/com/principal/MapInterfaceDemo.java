@@ -88,5 +88,9 @@ public class MapInterfaceDemo {
 			//no se puede convertir a String
 			personasPorCiudad = personas.stream().collect(Collectors.groupingBy(Persona::getCiudad, 
 					Collectors.mapping((Persona p) -> p.getNombre(), Collectors.toList())));
+			
+			//o sin expresion lambda para que quede mas claro
+			personasPorCiudad = personas.stream().collect(Collectors.groupingBy(Persona::getCiudad, 
+					Collectors.mapping(Persona::getNombre, Collectors.toList())));
 		}
 }
