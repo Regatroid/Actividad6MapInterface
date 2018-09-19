@@ -89,5 +89,4 @@ public class MapInterfaceDemo {
 			personasPorCiudad = personas.stream().collect(Collectors.groupingBy(Persona::getCiudad, 
 					Collectors.mapping((Persona p) -> p.getNombre(), Collectors.toList())));
 		}
-
 }
